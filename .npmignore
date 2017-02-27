@@ -1,0 +1,9 @@
+/src/
+/test/
+/coverage/
+.babelrc
+.eslintrc.js
+.npmignore
+.nvmrc
+.nycrc
+.travis.yml

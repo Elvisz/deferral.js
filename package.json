@@ -1,0 +1,53 @@
+{
+  "name": "deferral",
+  "version": "1.0.0-alpha",
+  "description": "Defferal your tasks and manage them.",
+  "main": "lib/index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "clear": "rimraf ./lib/* ./coverage/* ./.nyc_output/* coverage.lcov",
+    "lint": "eslint ./src",
+    "test": "rimraf ./coverage/* ./.nyc_output/* coverage.lcov && NODE_ENV=test nyc --reporter=html --reporter=text mocha",
+    "codecov": "NODE_ENV=test nyc report --reporter=text-lcov > coverage.lcov && codecov --token=a44cbc97-4f6e-4cc4-9c44-63e748ea8b9c",
+    "build": "babel ./src --out-dir ./lib",
+    "prepublish": "npm run clear && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Elvisz/deferral.js.git"
+  },
+  "keywords": [
+    "task",
+    "async",
+    "deferral"
+  ],
+  "author": "https://github.com/Elvisz",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Elvisz/deferral.js/issues"
+  },
+  "homepage": "https://github.com/Elvisz/deferral.js#readme",
+  "devDependencies": {
+    "babel-cli": "^6.23.0",
+    "babel-eslint": "^7.1.1",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-istanbul": "^4.0.0",
+    "babel-plugin-transform-es2015-modules-umd": "^6.24.0",
+    "babel-polyfill": "^6.23.0",
+    "babel-preset-env": "^1.2.1",
+    "babel-register": "^6.24.0",
+    "chai": "^3.5.0",
+    "codecov": "^2.1.0",
+    "eslint": "^3.18.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.2",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.2.0",
+    "nyc": "^10.1.2",
+    "rimraf": "^2.6.1"
+  }
+}
