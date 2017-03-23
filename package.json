@@ -12,7 +12,8 @@
     "test": "rimraf ./coverage/* ./.nyc_output/* coverage.lcov && NODE_ENV=test nyc --reporter=html --reporter=text mocha",
     "codecov": "NODE_ENV=test nyc report --reporter=text-lcov > coverage.lcov && codecov --token=a44cbc97-4f6e-4cc4-9c44-63e748ea8b9c",
     "build": "babel ./src --out-dir ./lib",
-    "prepublish": "npm run clear && npm run build"
+    "prepublish": "npm run clear && npm run build",
+    "doc": "esdoc"
   },
   "repository": {
     "type": "git",
@@ -40,6 +41,7 @@
     "babel-register": "^6.24.0",
     "chai": "^3.5.0",
     "codecov": "^2.1.0",
+    "esdoc": "^0.5.2",
     "eslint": "^3.18.0",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-plugin-import": "^2.2.0",
