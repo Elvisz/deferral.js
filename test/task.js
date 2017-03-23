@@ -28,8 +28,8 @@ describe('Unit: Task', function(){
   });
 
   it('run(...args) should be work properly.', function(){
-    const task = new Task(function(resolve, reject) {
-      resolve(arguments.slice(2));
+    const task = new Task(function(resolve, reject, ...args) {
+      resolve(args);
     });
 
     task.run('a', 'b').then(ret => {

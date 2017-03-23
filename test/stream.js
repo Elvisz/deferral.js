@@ -27,7 +27,7 @@ describe('Unit: Stream', function () {
         resolve();
       });
 
-      stream.run(task).success(ret => {
+      stream.run(task).success(() => {
         try {
           done();
         } catch (e) {

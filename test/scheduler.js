@@ -14,7 +14,7 @@ describe('Unit: Scheduler', function(){
     expect(scheduler).to.be.an.instanceof(Scheduler);
   });
 
-  it('create a scheduler with after should be ok.', function(){
+  it('create a scheduler with after should be ok.', function(done){
     const start = new Date();
     const scheduler = new Scheduler(['test'], new Promise(resolve => setTimeout(resolve, 100)));
     scheduler.done(() => {

@@ -25,8 +25,8 @@ describe('Unit: TaskWrapper', function(){
   });
 
   it('create with parameters should be work properly.', function(){
-    const task = new Task(function(resolve, reject) {
-      resolve(arguments.slice(2));
+    const task = new Task(function(resolve, reject, ...args) {
+      resolve(args);
     });
     const taskWrapper = new TaskWrapper(task, 'a', 'b');
 

@@ -78,7 +78,7 @@ export default class TaskWrapper {
     return this.task.run(...this[_params]).then((result) => {
       this[_success](result);
       return result;
-    }, (reason) => {
+    }).catch((reason) => {
       this[_fail](reason);
       return reason;
     });
