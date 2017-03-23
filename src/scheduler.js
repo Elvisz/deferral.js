@@ -5,7 +5,20 @@ const _queue = Symbol('queue');
 const _done = Symbol('done');
 const _defferal = Symbol('defferal');
 
+/**
+ * Class Scheduler.
+ * @example
+ * const scheduler = new Scheduler(['queue1']);
+ * const task = new Task((resolve, reject) => resolve());
+ *
+ * stream.add(task); // task will run after all code executed.
+ */
 export default class Scheduler {
+  /**
+   * Create a stream.
+   * @param {array} queue - Define scheduler queues.
+   * @param {promise} [after] - Define the scheduler after Promise.
+   */
   constructor(queue, after = Promise.resolve()) {
     if(!Array.isArray(queue)) {
       throw TypeError();
@@ -16,9 +29,18 @@ export default class Scheduler {
     }
 
     Object.assign(this, {
+      /**
+       * @private
+       */
       [_after]: after,
+      /**
+       * @private
+       */
       [_done]: () => {},
 
+      /**
+       * @private
+       */
       [_queue]: queue.reduce((map, node) => {
         let name;
         let unique;
@@ -45,7 +67,13 @@ export default class Scheduler {
     });
   }
 
+  /**
+   * @private
+   */
   [_defferal]() {
+    /**
+     * @private
+     */
     this.running = true;
     this[_after].then(() => {
       (async () => {
@@ -87,22 +115,50 @@ export default class Scheduler {
     });
   }
 
+  /**
+   * Define the scheduler will executed after a given Promise.
+   * @param {Promise} after - Promise for scheduler.
+   * @return {Scheduler} Scheduler instance.
+   */
   after(after) {
     if(!(after instanceof Promise)) {
       throw TypeError();
     }
 
+    /**
+     * @private
+     */
     this[_after] = after;
+
+    return this;
   }
 
+  /**
+   * Define the scheduler done callback.
+   * @param {function} done - Done callback for scheduler.
+   * @return {Scheduler} Scheduler instance.
+   */
   done(done) {
     if(typeof done !== 'function') {
       throw new TypeError();
     }
 
+    /**
+     * @private
+     */
     this[_done] = done;
+
+    return this;
   }
 
+
+  /**
+   * Push a task to scheduler and run.
+   * @param {Task} task - The task will be put into the scheduler.
+   * @param {string} to - The task will be put into the which scheduler queue.
+   * @param {...*} [params] - Parameters for task will be run in the scheduler.
+   * @return {TaskWrapper} TaskWrapper.
+   */
   add(task, to, ...params) {
     const wrap = new TaskWrapper(task, ...params);
 
