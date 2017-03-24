@@ -50,4 +50,12 @@ describe('Unit: Task', function(){
       expect(ret).to.be.eq(context.val);
     });
   });
+
+  it('context() should be work properly.', function(){
+    const task = new Task((resolve, reject) => resolve());
+    const context = { val: 'test' };
+    task.bind(context);
+
+    expect(task.context()).to.be.eq(context);
+  });
 });
