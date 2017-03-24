@@ -75,11 +75,14 @@ export default class TaskWrapper {
    * @return {Promise} The task promise.
    */
   run() {
-    return this.task.run(...this[_params]).then((result) => {
-      this[_success](result);
+    const task = this.task;
+    const context = task.context();
+
+    return task.run(...this[_params]).then((result) => {
+      this[_success].call(context, result);
       return result;
     }).catch((reason) => {
-      this[_fail](reason);
+      this[_fail].call(context, reason);
       return reason;
     });
   }
