@@ -46,4 +46,12 @@ export default class Task {
     this[_context] = context;
     return this;
   }
+
+  /**
+   * Get the task executor context.
+   * @return {object} Current task context.
+   */
+  context() {
+    return this[_context];
+  }
 }
