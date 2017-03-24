@@ -4,3 +4,4 @@ before_install:
   - npm install
 after_success:
   - npm run codecov
+  - curl 'https://doc.esdoc.org/api/create' -X POST --data-urlencode "gitUrl=git@github.com:Elvisz/deferral.js.git"
