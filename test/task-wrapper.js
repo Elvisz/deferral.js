@@ -60,6 +60,17 @@ describe('Unit: TaskWrapper', function(){
     }).to.throw(TypeError);
   });
 
+  it('success() handler context should be the task context.', function(){
+    const taskWrapper = new TaskWrapper(task);
+    const context = { val: 'context' };
+
+    task.bind(context);
+    taskWrapper.success(function(){
+      expect(this.val).to.be.eq('context');
+    });
+    taskWrapper.run();
+  });
+
   it('fail() should be work properly.', function(done){
     const taskWrapper = new TaskWrapper(new Task((resolve, reject) => reject()));
 
@@ -73,5 +84,16 @@ describe('Unit: TaskWrapper', function(){
     expect(() => {
       taskWrapper.fail();
     }).to.throw(TypeError);
+  });
+
+  it('fail() handler context should be the task context.', function(){
+    const taskWrapper = new TaskWrapper(new Task((resolve, reject) => reject()));
+    const context = { val: 'context' };
+
+    task.bind(context);
+    taskWrapper.fail(function(){
+      expect(this.val).to.be.eq('context');
+    });
+    taskWrapper.run();
   });
 });
