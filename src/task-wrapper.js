@@ -12,7 +12,8 @@ const _fail = Symbol('fail');
  * const task = new Task((resolve, reject, result) => resolve(result));
  * const wrapper = new TaskWrapper(task, 'test');
  *
- * wrapper.run().success(r => console.log(r)); // console out put: 'test'
+ * wrapper.success(r => console.log(r));
+ * wrapper.run(); // console out put: 'test'
  */
 export default class TaskWrapper {
   /**
