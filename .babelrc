@@ -1,8 +1,14 @@
 {
-  "presets": ["env"],
+  "presets": [
+    ["env", {
+      "targets": {
+        "node": "current"
+      },
+      "debug": true
+    }]
+  ],
   "plugins": [
-    "add-module-exports",
-    "transform-es2015-modules-umd"
+    "add-module-exports"
   ],
   "env": {
     "test": {

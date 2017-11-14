@@ -1,30 +1,26 @@
-import Task from './task';
+import { zip, isPlainObject } from './utils/utils';
+import { NOT_A_PLAIN_OBJECT } from './config/errors';
+import all from './all';
 
 /**
- * Batch run hash tasks.
- * @param {object} tasksHash - Batch run tasks.
- * @param {...*} params - Parameters for batch tasks.
- * @return {Promise} The tasks runner promise.
+ * A concurrent async functions runner, return a Promise that resolves when all of the tasks have resolved, return the keys and results.
+ * @param {Object} asyncs - Async functions.
+ * @param {...*} params - Parameters for async functions.
+ * @return {Promise}
  *
  * @example
- * const task = new Task((resolve, reject) => resolve('test'));
- * hash({ a: task, b: task, c: task }).then(result => console.log(result)); // { a: 'test', b: 'test', c: 'test' }
+ * const task1 = async (test = 'test') => `${test} of task 1`;
+ * const task2 = async (test = 'test') => `${test} of task 2`;
+ * const task3 = async (test = 'test') => `${test} of task 3`;
+ *
+ * hash({ task1, task2, task3 }).then(result => console.log(result)); // { task1: 'test of task 1', task2: 'test of task 2', task3: 'test of task 3' }
+ *
+ * hash({ task1, task2, task3 }, 'hello').then(result => console.log(result)); // { task1: 'hello of task 1', task2: 'hello of task 2', task3: 'hello of task 3' }
  */
-export default (tasksHash, ...params) => {
-  if(typeof tasksHash === 'object' && tasksHash.constructor === Object) {
-    const keys = Object.keys(tasksHash);
-
-    if(Object.values(tasksHash).some(task => !(task instanceof Task))) {
-      throw new TypeError();
-    }
-
-    return Promise
-      .all(keys.map(key => tasksHash[key].run(...params)))
-      .then(results => keys.reduce((map, key, index) => {
-        map[key] = results[index];
-        return map;
-      }, {}));
+export default (asyncs, ...params) => {
+  if(!isPlainObject(asyncs)) {
+    throw NOT_A_PLAIN_OBJECT;
   }
 
-  throw new TypeError();
+  return all(Object.values(asyncs)).then(results => zip(Object.keys(asyncs), results));
 };

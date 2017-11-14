@@ -1,17 +1,15 @@
-import Task from './task';
-import Stream from './stream';
-import Scheduler from './scheduler';
+import defer from './defer';
 import hash from './hash';
 import queue from './queue';
 import all from './all';
 import pipe from './pipe';
+import race from './race';
 
 export default {
+  defer,
   hash,
   queue,
   all,
   pipe,
-  Task,
-  Scheduler,
-  Stream
+  race
 };
